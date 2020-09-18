@@ -1,0 +1,1 @@
+# operativa-stock-2020
