@@ -3,15 +3,15 @@
     <div class="__row __pt-2 __pb-3">
       <div class="__col __col-4 __col-offset-3">
         <div class="__card">
-          <div class="__form-group __justify-evently">
+          <div class="__form-group __justify-evently text-white">
             <span>Elija un modelo: </span>
             <div class="__form-group">
               <input type="radio" name="model" id="model-q" value="q" v-model="model" checked>
-              <label for="model-q"> Modelo Q</label>
+              <label for="model-q" class="ml-1"> Modelo Q</label>
             </div>
             <div class="__form-group">
               <input type="radio" name="model" id="model-p" value="p" v-model="model">
-              <label for="model-p"> Modelo P</label>
+              <label for="model-p" class="ml-1"> Modelo P</label>
             </div>
           </div>
         </div>

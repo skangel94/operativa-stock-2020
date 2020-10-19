@@ -1,7 +1,8 @@
 import axios from 'axios';
+var url="http://operativa-stock-app.herokuapp.com";
 export default {
   retrieveAll() {
-    return axios.get("http://localhost:25101/detailsale")
+    return axios.get(url+"/detailsale")
       .then((response)=>{
        return  response.data;
       }).catch((error)=>{
@@ -11,7 +12,7 @@ export default {
   },
   retrieve(id) {
     console.log(id);
-      return axios.get("http://localhost:25101/detailsale/",{
+      return axios.get(url+"/detailsale/",{
         params: { id: id }})
       .then((response)=>{
         console.log(response)
@@ -22,7 +23,7 @@ export default {
   },
   create(stock) {
     console.log(stock);
-      return axios.post("http://localhost:25101/stock/detailsale",stock)
+      return axios.post(url+"/stock/detailsale",stock)
       .then((response)=>{
        return response.data;
       }).catch((error)=>{
@@ -31,7 +32,7 @@ export default {
   },
   remove(id) {
     console.log(id);
-     return  axios.delete("http://localhost:25101/detailsale/",{
+     return  axios.delete(url+"/detailsale/",{
       params: { id: id }
     })
       .then((response)=>{
@@ -41,7 +42,7 @@ export default {
       });
   },
   update(stock) {
-     return  axios.put("http://localhost:25101/stock/detailsale",stock)
+     return  axios.put(url+"/stock/detailsale",stock)
       .then((response)=>{
         return response.data
       }).catch((error)=>{

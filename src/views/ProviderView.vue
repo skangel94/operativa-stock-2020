@@ -1,5 +1,5 @@
 <template>
-  <div class="__full-height-perc">
+  <div class="container">
     <Provider-Component />
   </div>
 </template>

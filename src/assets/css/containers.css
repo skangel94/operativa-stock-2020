@@ -1,8 +1,17 @@
+.div_trans2 { background-color: rgba(0, 0, 0, 0.2); }
+.div_trans5 { background-color: rgba(0, 0, 0, 0.5); }
+.div_trans8 { background-color: rgba(0, 0, 0, 0.8); }
+.div_trans9 { background-color: rgba(0, 0, 0, 0.9); }
+.corner4 { border-radius: 15px; }
+.corner5 { border-radius: 20px; }
+.cursor-link { cursor:pointer; }
+
 .__card {
   padding: 1rem;
 
   border: 1px solid rgb(197, 197, 197);
-  background-color: white;
+  /*background-color: white;*/
+  background-color: rgba(0, 0, 0, 0.8);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, .4);
 }
 .__message {

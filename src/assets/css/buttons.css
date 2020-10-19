@@ -4,7 +4,7 @@ input[type="submit"].__button {
   outline: none;
   border: none;
   color: black;
-  background-color: white;
+  /*background-color: white;*/
   cursor: pointer;
   padding: .5rem;
   transition-duration: .3s;

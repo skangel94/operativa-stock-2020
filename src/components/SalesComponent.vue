@@ -1,47 +1,50 @@
 <template>
-  <div class="__row __full-height-perc">
-    <div id="form-container" class="__col __col-offset-3 __col-4 __align-self-center">
-      <form action="" class="__card">
-        <header class="__form-header">
-          <h2 class="__title">Venta</h2>
-          <p class="__description">Elige un producto junto con su cantidad para venderlo.</p>
-        </header>
-        <div class="__form-body">
-          <div class="__form-group">
-            <label for="stock_product">Producto: </label>
-            <select id="stock_product" required v-model="product">
-              <option value="" selected disabled>Elige una</option>
-              <option :value="productUnit" v-for="(productUnit, index) in products" :key="index">{{ productUnit.name }}</option>
-            </select>
-          </div>
-          <div class="__form-group">
-            <label for="category_remove">Cantidad: </label>
-            <input id="category_remove" type="number" min="0" required placeholder=" " v-model.number="amount">
-          </div>
-          <div class="__form-group">
-            <span>
-              Precio unitario: <strong> ${{ unitCost }} </strong>
-            </span>
-          </div>
-          <div class="__form-group">
-            <span>
-              Costo total: <strong> ${{ totalCost }} </strong>
-            </span>
-          </div>
+  <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 div_trans8 corner4 text-white mt-3">
+          <h4 class="mt-2 text-center">Ventas</h4>
+          <h6>Agrega una nueva venta</h6>
+          <form action="" class="form-group">
+            <div class="row justify-content-center" v-if="success">
+              <div class="alert alert-success col-md-12">{{ success }}</div>
+            </div>
+            <div class="row justify-content-center" v-else-if="error">            
+              <div class="alert alert-danger col-md-11 m-2">{{ error }}</div>    
+            </div>
+            <div class="row">
+              <div class="form-group col-md-12">
+                <label for="stock_product">Producto: </label>
+                <select id="stock_product" required v-model="product">
+                  <option value="" selected disabled>Elige un</option>
+                  <option :value="productUnit" v-for="(productUnit, index) in products" :key="index">{{ productUnit.name }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-12">
+                <label for="amount">Cantidad:</label>
+                <input class="form-control" id="amount" type="number" min="0" v-model.number="amount" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-12">
+                <label for="unitCost">Precio unitario:</label>
+                <input class="form-control" id="unitCost" type="number" min="0" v-model.number="unitCost" disabled>
+              </div>
+            </div> 
+            <div class="row">
+              <div class="form-group col-md-12">
+                <label for="totalCost">Costo total:</label>
+                <input class="form-control" id="totalCost" type="number" min="0" v-model.number="totalCost" disabled>
+              </div>
+            </div>     
+            <div class="row justify-content-center">     
+              <div class="form-group col-md-2">                              
+                <button type="submit" class="btn btn-outline-primary" @click.prevent="confirmar">Guardar</button>
+              </div>
+            </div>
+          </form>
         </div>
-        <div class="__form-footer">
-          <div class="__message __message-success __mb-1" v-if="success">
-            {{ success }}
-          </div>
-          <div class="__message __message-danger __mb-1" v-else-if="error">
-            {{ error }}
-          </div>
-          <div class="__form-group-buttons">
-            <button class="__button __button-success" @click.prevent="create">Vender</button>
-            <button class="__button __button-secondary" @click.prevent="clean">Limpiar campos</button>
-          </div>
-        </div>
-      </form>
     </div>
   </div>
 </template>

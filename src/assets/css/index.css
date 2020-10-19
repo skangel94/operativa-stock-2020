@@ -1,5 +1,5 @@
 body {
-  background-image: url('./../images/efbd02590b3f438ea531ffde8b8ef63d.jpg');
+  background-image: url('./../images/bg-licoreria.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
@@ -11,9 +11,18 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .2); 
+  background-color: rgba(0, 0, 0, .4); 
   z-index: 1;
 }
+
+.div_trans2 { background-color: rgba(0, 0, 0, 0.2); }
+.div_trans5 { background-color: rgba(0, 0, 0, 0.5); }
+.div_trans8 { background-color: rgba(0, 0, 0, 0.8); }
+.div_trans9 { background-color: rgba(0, 0, 0, 0.9); }
+.corner4 { border-radius: 15px; }
+.corner5 { border-radius: 20px; }
+.cursor-link { cursor:pointer; }
+
 .__loading-container {
   font-size: 2.5rem;
   font-family: 'shink';
@@ -44,3 +53,4 @@ body::before {
   font-family: 'shink';
   src: url('../webfonts/shink.otf');
 }
+

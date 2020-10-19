@@ -1,5 +1,5 @@
 <template>
-  <div class="__row __full-height-perc">
+  <div class="content">
     <div id="form-container" class="__col __col-3 __align-self-center">
       <div class="__card" v-if="loading">
         <header class="__form-header">
@@ -11,92 +11,91 @@
           </div>
         </div>
       </div>
+
       <div v-else>
-        <form action="" class="__card" v-if="form == 'create'">
-          <header class="__form-header">
-            <h2 class="__title">Proveedor</h2>
-            <p class="__description">Agrega un nuevo proveedor</p>
-          </header>
-          <div class="__form-body">
-            <div class="__form-group">
+        <form action="" class="row text-white div_trans8 corner4 p-2" v-if="form == 'create'">
+          <div class="row">
+            <div class="col-md-12">            
+            <h2 class="">Proveedor</h2>
+            <p class="">Agrega un nuevo proveedor</p>
+          </div>
+          <div class="col-md-3 form-group form-inline">
               <label for="provider_name">Nombre: </label>
               <input id="provider_name" type="text" required placeholder=" " v-model.trim="name">
             </div>
-            <div class="__form-group">
+            <div class="col-md-3 form-group form-inline">
               <label for="provider_email">Email: </label>
               <input id="provider_email" type="email" required placeholder=" " v-model.trim="email">
             </div>
-            <div class="__form-group">
+            <div class="col-md-3 form-group form-inline">
               <label for="provider_phone">Teléfono: </label>
               <input id="provider_phone" type="text" required placeholder=" " v-model.number="phone">
             </div>
-             <div class="__form-group">
-              <label for="provider_phone">Tiempo de Revision :T : </label>
+             <div class="col-md-3 form-group form-inline">
+              <label for="provider_phone">Tiempo de Revision: </label>
               <input id="provider_phone" type="number" required placeholder=" " v-model.number="leadtime">
             </div>
           </div>
-          <footer class="__form-footer">
+          <div class="col-md-6 form-group form-inline">
             <div class="__message __message-success __mb-1" v-if="success">
               {{ success }}
             </div>
             <div class="__message __message-danger __mb-1" v-else-if="error">
               {{ error }}
             </div>
-            <div class="__form-group-buttons">
-              <button class="__button __button-success" @click.prevent="create">Agregar</button>
-              <button class="__button __button-secondary" @click.prevent="clean">Limpiar campos</button>
+            <div class="col-md-12 form-group form-inline">
+              <a href="" class="btn btn-outline-success" @click.prevent="create">Agregar</a>
+              <a href="" class="btn btn-outline-warning ml-3" @click.prevent="clean">Limpiar campos</a>
             </div>
-          </footer>
+          </div>
         </form>
 
-        <form action="" class="__card" v-else-if="form == 'update'">
-          <header class="__form-header">
-            <h2 class="__title">Proveedor</h2>
-            <p class="__description">Modifica un proveedor existente</p>
-          </header>
-          <div class="__form-body">
-            <div class="__form-group">
+        <form action="" class="row text-white div_trans8 corner4 p-2" v-else-if="form == 'update'">
+          <div class="row">
+          <div class="col-md-12">
+            <h2 class="">Proveedor</h2>
+            <p class="">Modifica un proveedor existente</p>
+          </div>
+            <div class="col-md-3 form-group form-inline">
               <label for="category_id">ID: </label>
               <input id="category_id" type="number" required placeholder=" " v-model.number="id" disabled>
             </div>
-            <div class="__form-group">
+            <div class="col-md-3 form-group form-inline">
               <label for="provider_name">Nombre: </label>
               <input id="provider_name" type="text" required placeholder=" " v-model.trim="name">
             </div>
-            <div class="__form-group">
+            <div class="col-md-3 form-group form-inline">
               <label for="provider_email">Email: </label>
               <input id="provider_email" type="email" required placeholder=" " v-model.trim="email">
             </div>
-            <div class="__form-group">
+            <div class="col-md-3 form-group form-inline">
               <label for="provider_phone">Teléfono: </label>
               <input id="provider_phone" type="text" required placeholder=" " v-model.number="phone">
             </div>
-                  <div class="__form-group">
+            <div class="col-md-3 form-group form-inline">
               <label for="provider_phone">Lead Time: </label>
               <input id="provider_phone" type="number" required placeholder=" " v-model.number="leadtime">
             </div>
-          </div>
-          <div class="__form-footer">
+          <div class="col-md-12 form-group form-inline">
             <div class="__message __message-success __mb-1" v-if="success">
               {{ success }}
             </div>
             <div class="__message __message-danger __mb-1" v-else-if="error">
               {{ error }}
             </div>
-            <div class="__form-group-buttons">
-              <button class="__button __button-warning" @click.prevent="update">Modificar</button>
-              <button class="__button __button-secondary" @click.prevent="clean">Limpiar campos</button>
+            <div class="col-md-6 form-group form-inline">
+              <a href="" class="btn btn-outline-warning" @click.prevent="update">Modificar</a>
+              <a href="" class="btn btn-outline-secondary" @click.prevent="clean">Limpiar campos</a>
             </div>
           </div>
-          <div class="__form-footer __mt-1">
-            <div class="__form-group-buttons">
-              <button class="__button __button-success" @click.prevent="triggerForm" value="-1">Quiero crear</button>
-            </div>
+          <div class="col-md-3 form-group form-inline">
+              <a href="" class="btn btn-outline-light" @click.prevent="triggerForm" value="-1">Quiero crear</a>
+          </div>
           </div>
         </form>
       </div>
     </div>
-    <div class="__col __col-7">
+    <div class="__col __col-7 mt-3">
       <div id="table-container" class="__card __max-full-height-perc">
         <table id="table" class="__table __full-width-perc __text-center __table-bordered __table-hoverrable">
           <thead>
@@ -173,7 +172,7 @@ export default {
 
         ProviderService.create(provider)
           .then(resolve => {
-            this.success = "Carga Exitosamente"
+            this.success = "Cargado Exitosamente"
         ProviderService.retrieveAll().then((response)=>{
               this.providers=response;
             }).catch((error)=>{

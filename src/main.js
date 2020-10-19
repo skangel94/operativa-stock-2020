@@ -10,6 +10,7 @@ import '@/assets/css/table.css'
 import '@/assets/css/forms.css'
 import '@/assets/css/buttons.css'
 import '@/assets/css/index.css'
+import '@/assets/css/bootstrap.min.css'
 
 Vue.config.productionTip = false
 

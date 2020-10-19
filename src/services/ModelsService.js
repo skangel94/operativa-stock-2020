@@ -1,7 +1,8 @@
 import axios from 'axios';
+var url="http://operativa-stock-app.herokuapp.com";
 export default {
   retrieveAll() {
-    return axios.get("http://localhost:25101/product/all/q")
+    return axios.get(url+"/product/all/q")
       .then((response)=>{
        return  response.data;
       }).catch((error)=>{
@@ -10,7 +11,7 @@ export default {
       
   },
   All() {
-    return axios.get("http://localhost:25101/product/all/p")
+    return axios.get(url+"/product/all/p")
       .then((response)=>{
        return  response.data;
       }).catch((error)=>{
