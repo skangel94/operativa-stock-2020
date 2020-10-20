@@ -132,7 +132,7 @@
                 <a href="" class="btn btn-outline-light ml-3" @click.prevent="clean">Limpiar campos</a>
               </div>
               <div class="col-md-3 form-group form-inline">
-                <a href="" class="btn btn-outline-success" @click.prevent="triggerForm" value="-1">Quiero crear</a>
+                <a href="" class="btn btn-outline-success" @click.prevent="triggerForm(-1)">Quiero crear</a>
             </div>
             </div>            
           </div>
@@ -150,9 +150,8 @@
               <th>Precio</th>
               <th>Costo</th>
               <th>Código</th>
-               <th>Cantidad actual</th>
+              <th>Cantidad actual</th>
               <th>Punto de Reorden</th>
-              <th>Tiempo de revision</th>
               <th>Lead Time</th>
               <th>Categoría</th>
               <th >Proveedor</th>
@@ -167,17 +166,16 @@
               <td> {{ tock.code }} </td>
               <td> {{ tock.currentAmount}} </td>
               <td> {{ tock.reorder_point}} </td>
-              <td></td>
               <td v-if="tock.provideer!==null"> {{ tock.provideer.leadtime }} </td>
               <td v-else></td>
               <td> {{ tock.category.name }} </td>
               <td v-if="tock.provideer!==null"> {{ tock.provideer.name }} </td>
               <td v-else></td>
               <td>
-                <button class="__button __button-warning __button-rounded fas fa-pencil-alt" @click="triggerForm" :value="tock.id"></button>
+                <button class="__button __button-warning __button-rounded fas fa-pencil-alt" :id="tock.id+'-edit'" @click="triggerForm(tock.id)" :value="tock.id"></button>
               </td>
               <td>
-                <button class="__button __button-danger __button-rounded fas fa-times" @click="remove" :value="tock.id"></button>
+                <button class="__button __button-danger __button-rounded fas fa-times" :id="tock.id+'-remove'" @click="remove(tock.id)" :value="tock.id"></button>
               </td>
             </tr>
           </tbody>
@@ -189,7 +187,6 @@
               <th>Código</th>
               <th>Cantidad actual</th>
               <th>Punto de Reorden</th>
-             <th>Tiempo de revision</th>
               <th>Lead Time</th>
               <th>Categoría</th>
               <th>Proveedor</th>
@@ -294,14 +291,14 @@ export default {
         }, 2500)
       }
     },
-    remove(e) { 
-      const target = e.target
+    remove(id) { 
+      const target = document.getElementById(id + "-remove");
       target.disabled = true
       target.classList.remove('fa-times')
       target.classList.add('fa-sync')
       target.classList.add('fa-spin')
 
-      ProductService.remove(target.value)
+      ProductService.remove(id)
         .then(resolve => {
           target.classList.remove('fa-sync')
           target.classList.remove('fa-spin')
@@ -359,32 +356,31 @@ export default {
       } 
      
     },
-    triggerForm(e) {
-      const target = e.target
+    async triggerForm(id) {
+      const target = document.getElementById(id + "-edit");
 
-      if (target.value == -1) {
-        this.loading = true
-        this.form = 'create'
-        this.clean()
-        this.loading = false
+      if (id === -1) {
+        this.loading = true;
+        this.form = 'create';
+        this.clean();
+        this.loading = false;
 
       } else {
-        target.disabled = true
-        target.classList.remove('fa-edit')
-        target.classList.add('fa-sync')
-        target.classList.add('fa-spinner')
+        target.disabled = true;
+        target.classList.remove('fa-edit');
+        target.classList.add('fa-sync');
+        target.classList.add('fa-spinner');
 
-        ProductService.retrieve(target.value)
-          .then(resolve => {
-            console.log(resolve);
-            this.product=resolve;
-            target.classList.remove('fa-sync')
-            target.classList.remove('fa-spinner')
-            target.classList.add('fa-edit')
-            target.disabled = false
-            this.form = 'update'
-            this.loading = false
-          })
+        const resolve = await ProductService.retrieve(id);
+        this.product=resolve;
+        
+        target.classList.remove('fa-sync');
+        target.classList.remove('fa-spinner');
+        target.classList.add('fa-edit');
+        target.disabled = false;
+
+        this.form = 'update';
+        this.loading = false;
       }
     },
     clean() {
