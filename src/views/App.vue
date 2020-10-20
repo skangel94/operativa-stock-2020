@@ -9,12 +9,16 @@
   height: 100%;
   z-index: 5;
 }
+
+.menu{
+  font-size: 20px;
+}
 </style>
   
 <template>
   <main id="app" class=" __overflow-hidden">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light menu">
       <ul class="navbar-nav navbar-right">
         <li class="nav-item ml-3"><router-link to="/"><i class="fas fa-home"></i></router-link></li>
         <li class="nav-item ml-3"><router-link to="/config"><i class="fas fa-cogs"></i></router-link></li>  
@@ -36,7 +40,7 @@
             <router-link to="/product" title="Producto">Producto</router-link>
           </li>         
           <li class="nav-item ml-3">
-            <router-link to="/sales" title="Vender">Vender</router-link>
+            <router-link to="/sales" title="Vender">Venta</router-link>
           </li>           
           <li class="nav-item ml-3">
             <router-link to="/models" title="Modelo">Modelo</router-link>
