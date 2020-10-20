@@ -40,7 +40,7 @@
             </div>     
             <div class="row justify-content-center">     
               <div class="form-group col-md-2">                              
-                <button type="submit" class="btn btn-outline-primary" @click.prevent="confirmar">Guardar</button>
+                <button type="submit" class="btn btn-outline-primary" @click.prevent="create">Guardar</button>
               </div>
             </div>
           </form>
@@ -74,6 +74,7 @@ export default {
     },
     amount() {
       this.totalCost = this.unitCost * this.amount
+
     }
   },
   methods: {
@@ -85,8 +86,10 @@ export default {
           amount: this.totalCost
         }
 
+        // eslint-disable-next-line no-console
+        console.log(sale);
         SalesService.create(sale)
-          .then(resolve => {
+          .then((resolve) => {
             this.success = "Venta ingresada"
             setTimeout(() => {
               this.success = undefined
@@ -98,7 +101,7 @@ export default {
             setTimeout(() => {
               this.error = undefined
             }, 2500)
-          }) 
+          })
       } else {
         this.error = 'Llene todos los campos.'
 
