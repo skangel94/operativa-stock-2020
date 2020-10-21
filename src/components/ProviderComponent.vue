@@ -1,320 +1,324 @@
 <template>
-  <div class="content">
-    <div id="form-container" class="__col __col-3 __align-self-center">
-      <div class="__card" v-if="loading">
-        <header class="__form-header">
-          <h2 class="__title">Proveedor</h2>
-        </header>
-        <div class="__form-body">
-          <div class="__loading-container __text-center">
-            <i class="fas fa-spinner fa-spin"></i> Loading
-          </div>
+    <div class="content">
+        <div id="form-container" class="__col __col-3 __align-self-center">
+            <div class="__card" v-if="loading">
+                <header class="__form-header">
+                    <h2 class="__title">Proveedor</h2>
+                </header>
+                <div class="__form-body">
+                    <div class="__loading-container __text-center">
+                        <i class="fas fa-spinner fa-spin"></i> Loading
+                    </div>
+                </div>
+            </div>
+
+            <div v-else>
+                <form action="" class="row text-white div_trans8 corner4 p-2" v-if="form == 'create'">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="">Proveedor</h2>
+                            <p class="">Agrega un nuevo proveedor</p>
+                        </div>
+                        <div class="col-md-3 form-group form-inline">
+                            <label for="provider_name">Nombre: </label>
+                            <input id="provider_name" type="text" required placeholder=" " v-model.trim="name">
+                        </div>
+                        <div class="col-md-3 form-group form-inline">
+                            <label for="provider_email">Email: </label>
+                            <input id="provider_email" type="email" required placeholder=" " v-model.trim="email">
+                        </div>
+                        <div class="col-md-3 form-group form-inline">
+                            <label for="provider_phone">Teléfono: </label>
+                            <input id="provider_phone" type="text" required placeholder=" " v-model.number="phone">
+                        </div>
+                        <div class="col-md-3 form-group form-inline">
+                            <label for="provider_phone">Tiempo de Revision: </label>
+                            <input id="provider_phone" type="number" required placeholder=" " v-model.number="leadtime">
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group form-inline">
+                        <div class="__message __message-success __mb-1" v-if="success">
+                            {{ success }}
+                        </div>
+                        <div class="__message __message-danger __mb-1" v-else-if="error">
+                            {{ error }}
+                        </div>
+                        <div class="col-md-12 form-group form-inline">
+                            <a href="" class="btn btn-outline-success" @click.prevent="create">Agregar</a>
+                            <a href="" class="btn btn-outline-warning ml-3" @click.prevent="clean">Limpiar campos</a>
+                        </div>
+                    </div>
+                </form>
+
+                <form action="" class="row text-white div_trans8 corner4 p-2" v-else-if="form == 'update'">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="">Proveedor</h2>
+                            <p class="">Modifica un proveedor existente</p>
+                        </div>
+                        <div class="col-md-3 form-group form-inline">
+                            <label for="category_id">ID: </label>
+                            <input id="category_id" type="number" required placeholder=" " v-model.number="id" disabled>
+                        </div>
+                        <div class="col-md-3 form-group form-inline">
+                            <label for="provider_name">Nombre: </label>
+                            <input id="provider_name" type="text" required placeholder=" " v-model.trim="name">
+                        </div>
+                        <div class="col-md-3 form-group form-inline">
+                            <label for="provider_email">Email: </label>
+                            <input id="provider_email" type="email" required placeholder=" " v-model.trim="email">
+                        </div>
+                        <div class="col-md-3 form-group form-inline">
+                            <label for="provider_phone">Teléfono: </label>
+                            <input id="provider_phone" type="text" required placeholder=" " v-model.number="phone">
+                        </div>
+                        <div class="col-md-3 form-group form-inline">
+                            <label for="provider_phone">Lead Time: </label>
+                            <input id="provider_phone" type="number" required placeholder=" " v-model.number="leadtime">
+                        </div>
+                        <div class="col-md-12 form-group form-inline">
+                            <div class="__message __message-success __mb-1" v-if="success">
+                                {{ success }}
+                            </div>
+                            <div class="__message __message-danger __mb-1" v-else-if="error">
+                                {{ error }}
+                            </div>
+                            <div class="col-md-6 form-group form-inline">
+                                <a href="" class="btn btn-outline-warning" @click.prevent="update">Modificar</a>
+                                <a href="" class="btn btn-outline-secondary" @click.prevent="clean">Limpiar campos</a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 form-group form-inline">
+                            <a href="" class="btn btn-outline-light" @click.prevent="triggerForm(-1)" value="-1">Quiero
+                                crear</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-      </div>
+        <div class="__col __col-7 mt-3">
+            <div id="table-container" class="__card __max-full-height-perc">
+                <table id="table" class="__table __full-width-perc __text-center __table-bordered __table-hoverrable">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Lead Time</th>
+                        <th colspan="2">Extra</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(provider, index) in providers" :key="index">
+                        <td> {{ provider.id }}</td>
+                        <td> {{ provider.name }}</td>
+                        <td> {{ provider.email }}</td>
+                        <td> {{ provider.phone }}</td>
+                        <td> {{ provider.leadtime }}</td>
+                        <td>
+                            <button class="__button __button-warning __button-rounded fas fa-pencil-alt"
+                                    :id="provider.id+'-edit'" @click="triggerForm(provider.id)"
+                                    :value="provider.id"></button>
+                        </td>
+                        <td>
+                            <button class="__button __button-danger __button-rounded fas fa-times"
+                                    :id="provider.id+'-remove'" @click="remove(provider.id)"
+                                    :value="provider.id"></button>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Lead Time</th>
 
-      <div v-else>
-        <form action="" class="row text-white div_trans8 corner4 p-2" v-if="form == 'create'">
-          <div class="row">
-            <div class="col-md-12">            
-            <h2 class="">Proveedor</h2>
-            <p class="">Agrega un nuevo proveedor</p>
-          </div>
-          <div class="col-md-3 form-group form-inline">
-              <label for="provider_name">Nombre: </label>
-              <input id="provider_name" type="text" required placeholder=" " v-model.trim="name">
+                        <th colspan="2">Extra</th>
+                    </tr>
+                    </tfoot>
+                </table>
             </div>
-            <div class="col-md-3 form-group form-inline">
-              <label for="provider_email">Email: </label>
-              <input id="provider_email" type="email" required placeholder=" " v-model.trim="email">
-            </div>
-            <div class="col-md-3 form-group form-inline">
-              <label for="provider_phone">Teléfono: </label>
-              <input id="provider_phone" type="text" required placeholder=" " v-model.number="phone">
-            </div>
-             <div class="col-md-3 form-group form-inline">
-              <label for="provider_phone">Tiempo de Revision: </label>
-              <input id="provider_phone" type="number" required placeholder=" " v-model.number="leadtime">
-            </div>
-          </div>
-          <div class="col-md-6 form-group form-inline">
-            <div class="__message __message-success __mb-1" v-if="success">
-              {{ success }}
-            </div>
-            <div class="__message __message-danger __mb-1" v-else-if="error">
-              {{ error }}
-            </div>
-            <div class="col-md-12 form-group form-inline">
-              <a href="" class="btn btn-outline-success" @click.prevent="create">Agregar</a>
-              <a href="" class="btn btn-outline-warning ml-3" @click.prevent="clean">Limpiar campos</a>
-            </div>
-          </div>
-        </form>
-
-        <form action="" class="row text-white div_trans8 corner4 p-2" v-else-if="form == 'update'">
-          <div class="row">
-          <div class="col-md-12">
-            <h2 class="">Proveedor</h2>
-            <p class="">Modifica un proveedor existente</p>
-          </div>
-            <div class="col-md-3 form-group form-inline">
-              <label for="category_id">ID: </label>
-              <input id="category_id" type="number" required placeholder=" " v-model.number="id" disabled>
-            </div>
-            <div class="col-md-3 form-group form-inline">
-              <label for="provider_name">Nombre: </label>
-              <input id="provider_name" type="text" required placeholder=" " v-model.trim="name">
-            </div>
-            <div class="col-md-3 form-group form-inline">
-              <label for="provider_email">Email: </label>
-              <input id="provider_email" type="email" required placeholder=" " v-model.trim="email">
-            </div>
-            <div class="col-md-3 form-group form-inline">
-              <label for="provider_phone">Teléfono: </label>
-              <input id="provider_phone" type="text" required placeholder=" " v-model.number="phone">
-            </div>
-            <div class="col-md-3 form-group form-inline">
-              <label for="provider_phone">Lead Time: </label>
-              <input id="provider_phone" type="number" required placeholder=" " v-model.number="leadtime">
-            </div>
-          <div class="col-md-12 form-group form-inline">
-            <div class="__message __message-success __mb-1" v-if="success">
-              {{ success }}
-            </div>
-            <div class="__message __message-danger __mb-1" v-else-if="error">
-              {{ error }}
-            </div>
-            <div class="col-md-6 form-group form-inline">
-              <a href="" class="btn btn-outline-warning" @click.prevent="update">Modificar</a>
-              <a href="" class="btn btn-outline-secondary" @click.prevent="clean">Limpiar campos</a>
-            </div>
-          </div>
-          <div class="col-md-3 form-group form-inline">
-              <a href="" class="btn btn-outline-light" @click.prevent="triggerForm" value="-1">Quiero crear</a>
-          </div>
-          </div>
-        </form>
-      </div>
+        </div>
     </div>
-    <div class="__col __col-7 mt-3">
-      <div id="table-container" class="__card __max-full-height-perc">
-        <table id="table" class="__table __full-width-perc __text-center __table-bordered __table-hoverrable">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Email</th>
-              <th>Teléfono</th>
-              <th>Lead Time</th>
-              <th colspan="2">Extra</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(provider, index) in providers" :key="index">
-              <td> {{ provider.id }} </td>
-              <td> {{ provider.name }} </td>
-              <td> {{ provider.email }} </td>
-              <td> {{ provider.phone }} </td>
-              <td> {{ provider.leadtime }} </td>
-              <td>
-                <button class="__button __button-warning __button-rounded fas fa-pencil-alt" @click="triggerForm" :value="provider.id"></button>
-              </td>
-              <td>
-                <button class="__button __button-danger __button-rounded fas fa-times" @click="remove" :value="provider.id"></button>
-              </td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Email</th>
-              <th>Teléfono</th>
-              <th>Lead Time</th>
-
-              <th colspan="2">Extra</th>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
-import ProviderService from '@/services/ProviderService'
+    import ProviderService from '@/services/ProviderService'
 
-export default {
-  name: 'ProviderComponent',
-  data() {
-    return {
-      id: 0,
-      name: '',
-      email: '',
-      phone: '',
-      leadtime:0,
-      success: '',
-      error: '',
-      loading: false,
-      form: 'create',
-      providers: []
-    }
-  },
-  methods: {
-    create() {
-      if ( this.name.trim() && this.email.trim()  ) {
-        const provider = {
-         
-          name: this.name,
-          email: this.email,
-          phone: this.phone,
-          leadtime:this.leadtime
+    export default {
+        name: 'ProviderComponent',
+        data() {
+            return {
+                id: 0,
+                name: '',
+                email: '',
+                phone: '',
+                leadtime: 0,
+                success: '',
+                error: '',
+                loading: false,
+                form: 'create',
+                providers: []
+            }
+        },
+        methods: {
+            create() {
+                if (this.name.trim() && this.email.trim()) {
+                    const provider = {
+
+                        name: this.name,
+                        email: this.email,
+                        phone: this.phone,
+                        leadtime: this.leadtime
+                    }
+
+                    ProviderService.create(provider)
+                        .then(resolve => {
+                            this.success = "Cargado Exitosamente"
+                            ProviderService.retrieveAll().then((response) => {
+                                this.providers = response;
+                            }).catch((error) => {
+                                console.log(error);
+                            });
+                            setTimeout(() => {
+                                this.success = undefined
+                            }, 2500)
+                            this.clean()
+                        })
+                        .catch(reject => {
+                            this.error = reject
+
+                            setTimeout(() => {
+                                this.error = undefined
+                            }, 2500)
+                        })
+                } else {
+                    this.error = 'Llene todos los campos.'
+
+                    setTimeout(() => {
+                        this.error = undefined
+                    }, 2500)
+                }
+            },
+            remove(id) {
+                const target = document.getElementById(id+"-remove");
+                target.disabled = true;
+                target.classList.remove('fa-times');
+                target.classList.add('fa-sync');
+                target.classList.add('fa-spin');
+
+                ProviderService.remove(id)
+                    .then(resolve => {
+                        target.classList.remove('fa-sync')
+                        target.classList.remove('fa-spin')
+                        target.classList.add('fa-times')
+                        target.disabled = false
+                    })
+                ProviderService.retrieveAll().then((response) => {
+                    this.providers = response;
+                }).catch((error) => {
+                    console.log(error);
+                });
+            },
+            update() {
+                if (this.id > 0 && this.name.trim() && this.email.trim() && this.phone.trim()) {
+                    const provider = {
+                        id: this.id,
+                        name: this.name,
+                        email: this.email,
+                        phone: this.phone,
+                        leadtime: this.leadtime
+                    }
+
+                    ProviderService.update(provider)
+                        .then(resolve => {
+                            this.success = "Modificado Exitosamente"
+                            ProviderService.retrieveAll().then((response) => {
+                                this.providers = response;
+                            }).catch((error) => {
+                                console.log(error);
+                            });
+                            setTimeout(() => {
+                                this.success = undefined
+                            }, 2500)
+                        })
+                        .catch(reject => {
+                            this.error = reject
+
+                            setTimeout(() => {
+                                this.error = undefined
+                            }, 2500)
+                        })
+                } else {
+                    this.error = 'Llene todos los campos.'
+
+                    setTimeout(() => {
+                        this.error = undefined
+                    }, 2500)
+                }
+            },
+            async triggerForm(id) {
+                const target = document.getElementById(id + "-edit")
+
+                if (id === -1) {
+                    this.loading = true
+                    this.form = 'create'
+                    this.clean()
+                    this.loading = false
+
+                } else {
+                    target.disabled = true
+                    target.classList.remove('fa-pencil-alt')
+                    target.classList.add('fa-sync')
+                    target.classList.add('fa-spin')
+
+                    const resolve = await ProviderService.retrieve(id);
+
+                    this.id = resolve.id
+                    this.name = resolve.name
+                    this.email = resolve.email
+                    this.phone = resolve.phone
+                    this.leadtime = resolve.leadtime
+
+                    target.classList.remove('fa-sync')
+                    target.classList.remove('fa-spin')
+                    target.classList.add('fa-pencil-alt')
+                    target.disabled = false
+
+                    this.form = 'update';
+                    this.loading = false
+                }
+            },
+            clean() {
+                this.name = ''
+                this.email = ''
+                this.phone = ''
+                this.leadtime = ''
+            },
+        },
+        created() {
+            ProviderService.retrieveAll()
+                .then(resolve => {
+                    this.providers = resolve
+                })
+        },
+        mounted() {
+            const table_container = document.getElementById('table-container'),
+                table = document.getElementById('table'),
+                table_container_height = table_container.clientHeight,
+                table_height = table.clientHeight
+
+            if (table_container_height <= table_height) {
+                table_container.parentElement.classList.remove('__align-self-center')
+                table_container.classList.add('__overflow-scroll-y')
+            } else {
+                table_container.parentElement.classList.add('__align-self-center')
+                table_container.classList.remove('__overflow-scroll-y')
+            }
         }
-
-        ProviderService.create(provider)
-          .then(resolve => {
-            this.success = "Cargado Exitosamente"
-        ProviderService.retrieveAll().then((response)=>{
-              this.providers=response;
-            }).catch((error)=>{
-              console.log(error);
-            });
-            setTimeout(() => {
-              this.success = undefined
-            }, 2500)
-            this.clean()
-          })
-          .catch(reject => {
-            this.error = reject
-
-            setTimeout(() => {
-              this.error = undefined
-            }, 2500)
-          }) 
-      } else {
-        this.error = 'Llene todos los campos.'
-
-        setTimeout(() => {
-          this.error = undefined
-        }, 2500)
-      }
-    },
-    remove(e) { 
-      const target = e.target
-      target.disabled = true
-      target.classList.remove('fa-times')
-      target.classList.add('fa-sync')
-      target.classList.add('fa-spin')
-
-      ProviderService.remove(target.value)
-        .then(resolve => {
-          target.classList.remove('fa-sync')
-          target.classList.remove('fa-spin')
-          target.classList.add('fa-times')
-          target.disabled = false
-        })
-          ProductService.retrieveAll().then((response)=>{
-              this.providers=response;
-            }).catch((error)=>{
-              console.log(error);
-            });
-    },
-    update() {
-      if ( this.id > 0 && this.name.trim() && this.email.trim() && this.phone.trim() ) {
-        const provider = {
-          id: this.id,
-          name: this.name,
-          email: this.email,
-          phone: this.phone,
-          leadtime:this.leadtime
-        }
-
-        ProviderService.update(provider)
-          .then(resolve => {
-            this.success = "Modificado Exitosamente"
- ProviderService.retrieveAll().then((response)=>{
-              this.providers=response;
-            }).catch((error)=>{
-              console.log(error);
-            });
-            setTimeout(() => {
-              this.success = undefined
-            }, 2500)
-          })
-          .catch(reject => {
-            this.error = reject
-
-            setTimeout(() => {
-              this.error = undefined
-            }, 2500)
-          }) 
-      } else {
-        this.error = 'Llene todos los campos.'
-
-        setTimeout(() => {
-          this.error = undefined
-        }, 2500)
-      }
-    },
-    triggerForm(e) {
-      const target = e.target
-
-      if (target.value == -1) {
-        this.loading = true
-        this.form = 'create'
-        this.clean()
-        this.loading = false
-
-      } else {
-        target.disabled = true
-        target.classList.remove('fa-pencil-alt')
-        target.classList.add('fa-sync')
-        target.classList.add('fa-spin')
-
-        ProviderService.retrieve(target.value)
-          .then(resolve => {
-            this.id = resolve.id
-            this.name = resolve.name
-            this.email = resolve.email
-            this.phone = resolve.phone
-            this.leadtime=resolve.leadtime
-             
-            target.classList.remove('fa-sync')
-            target.classList.remove('fa-spin')
-            target.classList.add('fa-pencil-alt')
-            target.disabled = false
-
-            this.form = 'update'
-            this.loading = false
-          })
-      }
-    },
-    clean() {
-      this.name = ''
-      this.email = ''
-      this.phone = ''
-      this.leadtime=''
-    },
-  },
-  created() {
-    ProviderService.retrieveAll()
-      .then(resolve => {
-        this.providers = resolve
-      })
-  },
-  mounted() {
-    const table_container = document.getElementById('table-container'),
-      table = document.getElementById('table'),
-      table_container_height = table_container.clientHeight,
-      table_height = table.clientHeight
-      
-    if (table_container_height <= table_height) {
-      table_container.parentElement.classList.remove('__align-self-center')
-      table_container.classList.add('__overflow-scroll-y')
-    } else {
-      table_container.parentElement.classList.add('__align-self-center')
-      table_container.classList.remove('__overflow-scroll-y')
     }
-  }
-}
 </script>
 

@@ -1,8 +1,9 @@
 import axios from 'axios';
-var url="http://operativa-stock-app.herokuapp.com";
+import ConfigParams from "./ConfigParams";
+
 export default {
   retrieveAll() {
-    return axios.get(url+"/provideer")
+    return axios.get(ConfigParams.URI.concat("/provideer"))
       .then((response)=>{
        return  response.data;
       }).catch((error)=>{
@@ -12,16 +13,17 @@ export default {
   },
   retrieve(id) {
     console.log(id);
-      return axios.get(url+"/provideer/",{
+      return axios.get(ConfigParams.URI.concat("/provideer/"),{
         params: { id: id }})
       .then((response)=>{
+          console.log(response)
         return response.data;
       }).catch((error)=>{
         console.log(error);
       });
   },
   create(provideer) {
-      return axios.post(url+"/provideer/create",provideer)
+      return axios.post(ConfigParams.URI.concat("/provideer/create"),provideer)
       .then((response)=>{
        return response.data;
       }).catch((error)=>{
@@ -30,7 +32,7 @@ export default {
   },
   remove(id) {
     console.log(id);
-     return  axios.delete(url+"/provideer/",{
+     return  axios.delete(ConfigParams.URI.concat("/provideer/"),{
       params: { id: id }
     })
       .then((response)=>{
@@ -40,7 +42,7 @@ export default {
       });
   },
   update(provideer) {
-     return  axios.put(url+"/provideer/edit",provideer)
+     return  axios.put(ConfigParams.URI.concat("/provideer/edit"),provideer)
       .then((response)=>{
         return response.data
       }).catch((error)=>{
