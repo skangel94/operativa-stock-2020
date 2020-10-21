@@ -1,18 +1,18 @@
 import axios from 'axios';
-var url="http://operativa-stock-app.herokuapp.com";
+import ConfigParams from "./ConfigParams";
 export default {
   retrieveAll() {
-    return axios.get(url+"/product")
+    return axios.get(ConfigParams.URI.concat("/product"))
       .then((response)=>{
        return  response.data;
       }).catch((error)=>{
-        console.log(error);
+       console.log(error);
       });
       
   },
   retrieve(id) {
     console.log(id);
-      return axios.get(url+"/product/",{
+      return axios.get(ConfigParams.URI.concat("/product/"),{
         params: { id: id }})
       .then((response)=>{
         console.log(response);
@@ -22,7 +22,7 @@ export default {
       });
   },
   create(product) {
-      return axios.post(url+"/product/create",product)
+      return axios.post(ConfigParams.URI.concat("/product/create"),product)
       .then((response)=>{
        return response.data;
       }).catch((error)=>{
@@ -32,7 +32,7 @@ export default {
   
   remove(id) {
     console.log(id);
-     return  axios.delete(url+"/product/",{
+     return  axios.delete(ConfigParams.URI.concat("/product/"),{
       params: { id: id }
     })
       .then((response)=>{
@@ -42,7 +42,7 @@ export default {
       });
   },
   update(product) {
-     return axios.put(url+"/product/edit", product)
+     return axios.put(ConfigParams.URI.concat("/product/edit"), product)
       .then((response)=>{
         return response.data;
       }).catch((error)=>{
