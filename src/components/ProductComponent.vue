@@ -414,8 +414,8 @@ export default {
     const table_container = document.getElementById('table-container'),
       table = document.getElementById('table'),
       table_container_height = table_container.clientHeight,
-      table_height = table.clientHeight
-      
+      table_height = table.clientHeight;
+
     if (table_container_height <= table_height) {
       table_container.parentElement.classList.remove('__align-self-center')
       table_container.classList.add('__overflow-scroll-y')

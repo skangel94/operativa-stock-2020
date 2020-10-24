@@ -14,9 +14,33 @@
     <title>Bottles Vinoteca</title>
 
     <link rel="icon" href="<%= BASE_URL %>wine-glass.ico">
+
+    <style>
+        .scrollapp::-webkit-scrollbar-track
+        {
+            -webkit-box-shadow: inset 0 0 6px rgba(82, 82, 82, 0.3);
+            border-radius: 5px;
+            background-color: #F5F5F5;
+        }
+
+        .scrollapp::-webkit-scrollbar
+        {
+            /*width: 6px;*/
+            /*background-color: #c3c3c3;*/
+            width: 0px;  /* Remove scrollbar space */
+            background: transparent;  /* Optional: just make scrollbar invisible */
+        }
+
+        .scrollapp::-webkit-scrollbar-thumb
+        {
+            border-radius: 5px;
+            -webkit-box-shadow: inset 0 0 6px rgba(76, 76, 76, 0.3);
+            background-color: #949494;
+        }
+    </style>
 </head>
 
-<body class="__full-height-vh">
+<body class="__full-height-vh scrollapp">
     <noscript>
     <strong>We're sorry but op doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
   </noscript>
