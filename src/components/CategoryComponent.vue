@@ -61,35 +61,40 @@
 
         </div>
 
-        <div class="row mt-4 corner4 div_trans8">
-            <table id="table" class="table text-white m-4">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th colspan="2">Extra</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="(category, index) in categories" :key="index">
-                    <td> {{ category.id }}</td>
-                    <td> {{ category.name }}</td>
-                    <td> {{ category.description }}</td>
-                    <td>
-                        <button class="__button __button-warning __button-rounded fas fa-pencil-alt" :id="category.id+'-edit'" @click="triggerForm(category.id)" :value="category.id"></button>
-                    </td>
-                    <td>
-                        <button class="__button __button-danger __button-rounded fas fa-times" :id="category.id+'-remove'" @click="remove(category.id)" :value="category.id"></button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+    <div class="__col __col-7 mt-3 corner4 div_trans8">
+        <div class="content ">
+            <div id="table-container" class="__card __max-full-height-perc">
+                <table id="table" class="__table __full-width-perc __text-center __table-bordered __table-hoverrable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th colspan="2">Extra</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(category, index) in categories" :key="index">
+                        <td> {{ category.id }}</td>
+                        <td> {{ category.name }}</td>
+                        <td> {{ category.description }}</td>
+                        <td>
+                            <button class="__button __button-warning __button-rounded fas fa-pencil-alt" :id="category.id+'-edit'" @click="triggerForm(category.id)" :value="category.id"></button>
+                        </td>
+                        <td>
+                            <button class="__button __button-danger __button-rounded fas fa-times" :id="category.id+'-remove'" @click="remove(category.id)" :value="category.id"></button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+</div>
 </template>
 
 <script>
+/* eslint-disable */
     import CategoryService from '@/services/CategoryService'
 
     export default {

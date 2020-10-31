@@ -55,23 +55,6 @@
               <td>${{ row.tc.toFixed(2) }}</td>
             </tr>
           </tbody>
-          <tfoot>
-            <tr>
-              <th>Producto</th>
-              <th><abbr title="Nivel actual de inventario">I</abbr></th>
-              <th><abbr title="Demanda diaria">d</abbr></th>
-              <th><abbr title="Demanda anual">D</abbr></th>
-              <th><abbr title="Cantidad que debe ordenarse">Q</abbr></th>
-              <th><abbr title="Costo de mantenimiento">H</abbr></th>
-              <th><abbr title="Costo de preparación">S</abbr></th>
-              <th><abbr title="Costo por unidad">C</abbr></th>
-              <th><abbr title="Punto de reorden">R</abbr></th>
-              <th><abbr title="Desviación estándar durante el periodo de revisión">σ(L)</abbr></th>
-              <th><abbr title="Existencia de Seguridad">z*σ(L)</abbr></th>
-              <th><abbr title="Lead Time">L</abbr></th>
-              <th>Costo anual Total</th>
-            </tr>
-          </tfoot>
         </table>
 
         <table id="table-p" class="__table __full-width-perc __text-center __table-bordered __table-hoverrable">
@@ -112,24 +95,6 @@
               <td>${{ row.tc }}</td>
             </tr>
           </tbody>
-          <tfoot>
-            <tr>
-              <th>Producto</th>
-              <th><abbr title="Nivel actual de inventario">I</abbr></th>
-              <th><abbr title="Demanda diaria">d</abbr></th>
-              <th><abbr title="Demanda anual">D</abbr></th>
-              <th><abbr title="Cantidad que debe ordenarse">Q</abbr></th>
-              <th><abbr title="Número de días transcurridos entre las revisiones">T</abbr></th>
-              <th><abbr title="Nivel de servicio deseado">P</abbr></th>
-              <th><abbr title="Número de desviación estándar para un nivel de servicio específico">z</abbr></th>
-              <th><abbr title="Desviación estándar durante el periodo de revisión y el plazo">σ(T+L)</abbr></th>
-              <th><abbr title="Desviación estándar de la demanda durante la revisión y el plazo">z*σ(T+L)</abbr></th>
-              <th><abbr title="Desviación estandar de la demanda">σd</abbr></th>
-              <th><abbr title="Lead Time">L</abbr></th>
-
-              <th>Costo anual Total</th>
-            </tr>
-          </tfoot>
         </table>
       </div>
     </section>
@@ -137,6 +102,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import ModelsService from '@/services/ModelsService'
 
 export default {

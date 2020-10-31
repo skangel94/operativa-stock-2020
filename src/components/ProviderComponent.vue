@@ -128,17 +128,6 @@
                         </td>
                     </tr>
                     </tbody>
-                    <tfoot>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Email</th>
-                        <th>Teléfono</th>
-                        <th>Lead Time</th>
-
-                        <th colspan="2">Extra</th>
-                    </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>
@@ -146,6 +135,7 @@
 </template>
 
 <script>
+/* eslint-disable */
     import ProviderService from '@/services/ProviderService'
 
     export default {

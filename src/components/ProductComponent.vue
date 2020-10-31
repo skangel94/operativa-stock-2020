@@ -179,20 +179,6 @@
               </td>
             </tr>
           </tbody>
-          <tfoot>
-            <tr>
-              <th>Nombre</th>
-              <th>Precio</th>
-              <th>Costo</th>
-              <th>Código</th>
-              <th>Cantidad actual</th>
-              <th>Punto de Reorden</th>
-              <th>Lead Time</th>
-              <th>Categoría</th>
-              <th>Proveedor</th>
-              <th colspan="2">Extra</th>
-            </tr>
-          </tfoot>
         </table>
       </div>
     </div>
@@ -202,6 +188,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import CategoryService from '@/services/CategoryService'
 import ProviderService from '@/services/ProviderService'
 import ProductService from '@/services/ProductService'
