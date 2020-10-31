@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6 div_trans8 corner4 text-white mt-3">
                 <h4 class="mt-2 text-center">Configuración</h4>
-                <h6>Agrega una nueva categoría</h6>
+                <hr>
                 <form action="" class="form-group">
                     <div class="row justify-content-center" v-if="success">
                         <div class="alert alert-success col-md-12">{{ success }}</div>
@@ -64,7 +64,7 @@
     export default {
         name: 'ConfigComponent',
         data() {
-            return {
+            return {   
                 id: 1,
                 maintenance: 0,
                 work_days: 365,
@@ -111,6 +111,20 @@
                 this.product = '';
                 this.amount = 0
             }
+        },
+        created() {
+            ConfigService.retrieve(1).then((response) => {
+                
+                this.id = response.id
+                this.maintenance = response.costoMantenimiento
+                this.work_days=  response.diasLaborales,
+                this.days =  response.diasDeCompras,
+                this.porcent = response.porcentajeServicio,
+                this.costPurchase = response.costoVenta
+
+            }).catch((error) => {
+                console.log(error);
+            });
         }
     }
 </script>
