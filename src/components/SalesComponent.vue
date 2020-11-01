@@ -14,16 +14,16 @@
             <div class="row">
               <div class="form-group col-md-12">
                 <label for="stock_product">Producto: </label>
-                <select id="stock_product" required v-model="product">
+                <select id="stock_product" required v-model="product" @change="selectOnChange($event)">
                   <option value="" selected disabled>Elige un</option>
-                  <option :value="productUnit" v-for="(productUnit, index) in products" :key="index">{{ productUnit.name }}</option>
+                  <option :value="productUnit" v-for="(productUnit, index) in products" :key="index" >{{ productUnit.name}}</option>
                 </select>
               </div>
             </div>
             <div class="row">
               <div class="form-group col-md-12">
                 <label for="amount">Cantidad:</label>
-                <input class="form-control" id="amount" type="number" min="0" v-model.number="amount" required>
+                <input class="form-control" id="amount" type="number" min="0" v-model.number="amount" required @blur="cantidadOnChange()">
               </div>
             </div>
             <div class="row">
@@ -64,6 +64,8 @@ export default {
       totalCost: 0,
       success: undefined,
       error: undefined,
+      stock:'',
+      puntoReorden: 0,
       products: []
     }
   },
@@ -114,7 +116,32 @@ export default {
       this.product = ''
       this.amount = 0
     },
+    selectOnChange(event) {
+      this.stock = this.product.currentAmount
+      this.puntoReorden = this.product.reorder_point
+    },
+    cantidadOnChange() {
+    if (this.amount > this.stock){
+      alert("La cantidad supera el Stock de: "+this.stock);
+      this.amount = 0;
+    }else{
+      if (this.amount > this.puntoReorden)
+          alert ("Atención! Ah alcanzado el punto de reorden: "+this.puntoReorden);
+      }
+    },
+    colorText() {
+      let color;
+      if (this.stock < this.puntoReOrden) {
+        color = "text-red";
+      } else {
+        color = "text-white";
+      }
+      return color;
+    }
   },
+  
+
+  
   created() {
     ProductService.retrieveAll()
       .then(resolve => {

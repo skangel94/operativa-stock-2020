@@ -1,8 +1,8 @@
 import axios from 'axios';
-var url="http://operativa-stock-app.herokuapp.com";
+import ConfigParams from "./ConfigParams";
 export default {
   retrieveAll() {
-    return axios.get(url+"/product/all/q")
+    return axios.get(ConfigParams.URI.concat("/product/all/q"))
       .then((response)=>{
        return  response.data;
       }).catch((error)=>{
@@ -11,7 +11,7 @@ export default {
       
   },
   All() {
-    return axios.get(url+"/product/all/p")
+    return axios.get(ConfigParams.URI.concat("/product/all/p"))
       .then((response)=>{
        return  response.data;
       }).catch((error)=>{

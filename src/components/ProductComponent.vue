@@ -24,10 +24,6 @@
               <input id="product_name" type="text" required placeholder=" " v-model.trim="product.name">
             </div>
             <div class="col-md-3 form-group form-inline">
-              <label for="product_amount">Precio: </label>
-              <input id="product_amount" type="number" required placeholder=" " v-model.number="product.amount">
-            </div>
-            <div class="col-md-3 form-group form-inline">
               <label for="product_cost">Costo: </label>
               <input id="product_cost" type="number" required placeholder=" " v-model.number="product.cost">
             </div>
@@ -36,8 +32,12 @@
               <label for="product_code">Código: </label>
               <input id="product_code" type="text" required placeholder=" " v-model.trim="product.code">
             </div>
+            <div class="col-md-3 form-group form-inline">
+              <label for="product_amount">Demanda diaria: </label>
+              <input id="product_amount" type="number" required placeholder=" " v-model.number="product.amount">
+            </div>
              <div class="col-md-3 form-group form-inline">
-              <label for="stock_actual">Cantidad Actual: </label>
+              <label for="stock_actual">Stock: </label>
               <input id="stock_actual" type="number" required placeholder=" " v-model.number="product.currentAmount">
             </div>
             <div class="col-md-3 form-group form-inline">
@@ -53,7 +53,7 @@
               </div>
             <div class="col-md-3 form-group form-inline" v-if="check">
               <label for="product_provider">Proveedor: </label>
-              <select id="product_provider" required v-model="product.provideer">
+              <select id="product_provider" v-model="product.provideer">
                 <option value="" selected disabled>Elige una</option>
                 <option :value="providerUnit" v-for="(providerUnit, index) in providers" :key="index">{{ providerUnit.name }}</option>
               </select>
@@ -89,7 +89,7 @@
               <input id="product_name" type="text" required placeholder=" " v-model.trim="product.name">
             </div>
             <div class="col-md-3 form-group form-inline">
-              <label for="product_amount">Precio: </label>
+              <label for="product_amount">Demanda diaria: </label>
               <input id="product_amount" type="number" required placeholder=" " v-model.number="product.amount">
             </div>
             <div class="col-md-3 form-group form-inline">
@@ -102,7 +102,7 @@
               <input id="product_code" type="text" required placeholder=" " v-model.trim="product.code">
             </div>
             <div class="col-md-3 form-group form-inline">
-              <label for="stock_actual">Cantidad Actual: </label>
+              <label for="stock_actual">Stock: </label>
               <input id="stock_actual" type="number" required placeholder=" " v-model.number="product.currentAmount">
             </div>
             <div class="col-md-3 form-group form-inline">
@@ -114,7 +114,7 @@
             </div>
             <div class="col-md-3 form-group form-inline">
               <label for="product_provider">Proveedor: </label>
-              <select id="product_provider" required v-model="product.provideer">
+              <select id="product_provider" v-model="product.provideer">
                 <option value="" selected disabled>Elige una</option>
                 <option :value="providerUnit" v-for="(providerUnit, index) in providers" :key="index">{{ providerUnit.name }}</option>
               </select>
@@ -146,11 +146,11 @@
         <table id="table" class="__table __full-width-perc __text-center __table-bordered __table-hoverrable">
           <thead>
             <tr>
-              <th>Nombre</th>
-              <th>Precio</th>
+              <th>Nombre</th>  
               <th>Costo</th>
               <th>Código</th>
-              <th>Cantidad actual</th>
+              <th>Demanda diaria</th>
+              <th>Stock</th>
               <th>Punto de Reorden</th>
               <th>Lead Time</th>
               <th>Categoría</th>
@@ -161,9 +161,9 @@
           <tbody>
             <tr v-for="(tock, index) in stocks" :key="index">
               <td> {{ tock.name }} </td>
-              <td> {{ tock.amount }} </td>
               <td> {{ tock.cost }} </td>
               <td> {{ tock.code }} </td>
+              <td> {{ tock.amount }} </td>
               <td> {{ tock.currentAmount}} </td>
               <td> {{ tock.reorder_point}} </td>
               <td v-if="tock.provideer!==null"> {{ tock.provideer.leadtime }} </td>
@@ -301,7 +301,7 @@ export default {
         });
     },
     update() {
-      if ( this.product.id > 0 && this.product.amount >= 0 && this.product.cost >= 0  && this.product.code.trim() &&  this.product.category && this.product.provideer ) {
+      if ( this.product.id > 0 && this.product.amount >= 0 && this.product.cost >= 0  && this.product.code.trim() &&  this.product.category ) {
          
         let product = {
                   id: this.product.id,
