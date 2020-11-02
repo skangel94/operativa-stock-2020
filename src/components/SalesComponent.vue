@@ -121,12 +121,12 @@ export default {
       this.puntoReorden = this.product.reorder_point
     },
     cantidadOnChange() {
-    if (this.amount > this.stock){
+    if (this.amount > this.stock && this.product != ""){
       alert("La cantidad supera el Stock de: "+this.stock);
       this.amount = 0;
     }else{
-      if (this.amount > this.puntoReorden)
-          alert ("Atención! Ah alcanzado el punto de reorden: "+this.puntoReorden);
+      if ((this.stock - this.amount) <= this.puntoReorden && this.product != "")
+          alert ("Atención! ha alcanzado el punto de reorden: "+this.puntoReorden);
       }
     },
     colorText() {
