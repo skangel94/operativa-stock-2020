@@ -34,7 +34,7 @@
             </div>
             <div class="col-md-3 form-group form-inline">
               <label for="product_amount">Demanda diaria: </label>
-              <input id="product_amount" type="number" required placeholder=" " v-model.number="product.amount">
+              <input id="product_amount" type="number" required placeholder=" " v-model.number="product.amount" @blur="demandaOnChange()">
             </div>
              <div class="col-md-3 form-group form-inline">
               <label for="stock_actual">Stock: </label>
@@ -56,6 +56,15 @@
               <select id="product_provider" v-model="product.provideer">
                 <option value="" selected disabled>Elige una</option>
                 <option :value="providerUnit" v-for="(providerUnit, index) in providers" :key="index">{{ providerUnit.name }}</option>
+              </select>
+            </div>
+            <div class="col-md-3 form-group form-inline">
+              <label for="product_zone">Zona: </label>
+              <select id="product_zone" v-model="product.zone">
+                <option disabled value="">Seleccione una</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
               </select>
             </div>
 
@@ -119,6 +128,15 @@
                 <option :value="providerUnit" v-for="(providerUnit, index) in providers" :key="index">{{ providerUnit.name }}</option>
               </select>
             </div>
+            <div class="col-md-3 form-group form-inline">
+              <label for="product_zone">Zona: </label>
+              <select id="product_zone" v-model="product.zone">
+                <option disabled value="">Seleccione una</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+              </select>
+            </div>
 
             <div class="col-md-12 form-group form-inline">
               <div class="__message __message-success __mb-1" v-if="success">
@@ -154,7 +172,8 @@
               <th>Punto de Reorden</th>
               <th>Lead Time</th>
               <th>Categoría</th>
-              <th >Proveedor</th>
+              <th>Proveedor</th>
+              <th>Zona</th>
               <th colspan="2">Extra</th>
             </tr>
           </thead>
@@ -171,6 +190,7 @@
               <td> {{ tock.category.name }} </td>
               <td v-if="tock.provideer!==null"> {{ tock.provideer.name }} </td>
               <td v-else></td>
+              <td>{{ tock.zone }}</td>
               <td>
                 <button class="__button __button-warning __button-rounded fas fa-pencil-alt" :id="tock.id+'-edit'" @click="triggerForm(tock.id)" :value="tock.id"></button>
               </td>
@@ -206,6 +226,7 @@ export default {
         provideer: '',
         currentAmount:0,
         reorder_point:0,
+        zone:'',
                 },
       check:false,
       success: '',
@@ -230,7 +251,8 @@ export default {
                   category: this.product.category,
                   provideer: this.product.provideer,
                   currentAmount:this.product.currentAmount,
-                  reorder_point:this.product.reorder_point
+                  reorder_point:this.product.reorder_point,
+                  zone: this.product.zone
             }
             console.log(product);
       }else{
@@ -243,7 +265,8 @@ export default {
                   provideer:null,
                   category: this.product.category,
                   currentAmount:this.product.currentAmount,
-                  reorder_point:this.product.reorder_point
+                  reorder_point:this.product.reorder_point,
+                  zone: this.product.zone
             }
       }
             
@@ -312,7 +335,8 @@ export default {
                   category: this.product.category,
                   provideer: this.product.provideer,
               currentAmount:this.product.currentAmount,
-              reorder_point:this.product.reorder_point
+              reorder_point:this.product.reorder_point,
+              zone: this.product.zone
             } 
             ProductService.update(product)
               .then(resolve => {
@@ -379,7 +403,24 @@ export default {
       this.product.currentAmount=0
       this.product.category = ''
       this.product.provideer = ''
+      this.product.zone = ''
     },
+    demandaOnChange() {
+      if (this.product.amount !== "" && this.product.cost !== ""){
+        console.log(this.product.amount);
+        console.log(this.product.cost);
+        let cav = this.product.amount * this.product.cost * 365;
+        if (cav > 2000000){
+          this.product.zone = 'A';
+        }else if(cav < 2000000 && cav > 1800000)
+          this.product.zone = 'B';
+        else{
+          this.product.zone = 'C';
+        }     
+        console.log(cav);
+        console.log(this.product.zone);
+      }
+    }
   },
   created() {
     CategoryService.retrieveAll()
