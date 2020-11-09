@@ -83,7 +83,8 @@
               <td>{{ row.i }} uni.</td>
               <td>{{ row.dr }} uni.</td>
               <td>{{ row.d }} uni.</td>
-              <td>{{ row.q }} uni.</td>
+              <td v-if="row.q < 0">{{ (row.q * -1) }} uni.</td>
+              <td v-else>{{ row.q }} uni.</td>
               <td>{{ row.t }} días</td>
               <td>{{ row.p }}</td>
               <td>{{ row.z }}</td>

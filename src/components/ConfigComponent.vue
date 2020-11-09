@@ -27,7 +27,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-12">
-                            <label for="days">Días entre compras:</label>
+                            <label for="days">Días entre revisiones:</label>
                             <input class="form-control" id="days" type="number" min="0" v-model.number="days" required>
                         </div>
                     </div>
