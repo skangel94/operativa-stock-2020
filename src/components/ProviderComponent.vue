@@ -56,10 +56,10 @@
                             <h2 class="">Proveedor</h2>
                             <p class="">Modifica un proveedor existente</p>
                         </div>
-                        <div class="col-md-3 form-group form-inline">
+                        <!-- <div class="col-md-3 form-group form-inline">
                             <label for="category_id">ID: </label>
                             <input id="category_id" type="number" required placeholder=" " v-model.number="id" disabled>
-                        </div>
+                        </div> -->
                         <div class="col-md-3 form-group form-inline">
                             <label for="provider_name">Nombre: </label>
                             <input id="provider_name" type="text" required placeholder=" " v-model.trim="name">

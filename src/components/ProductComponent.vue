@@ -89,10 +89,10 @@
             <h2 class="__title">Producto</h2>
             <p class="__description">Modifica un producto existente</p>
           </div>
-            <div class="col-md-3 form-group form-inline">
+            <!-- <div class="col-md-3 form-group form-inline">
               <label for="category_id">ID: </label>
               <input id="category_id" type="number" required placeholder=" " v-model.number="product.id" disabled>
-            </div>
+            </div> -->
             <div class="col-md-3 form-group form-inline">
               <label for="product_name">Nombre: </label>
               <input id="product_name" type="text" required placeholder=" " v-model.trim="product.name">
