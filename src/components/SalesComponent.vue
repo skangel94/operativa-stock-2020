@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6 div_trans8 corner4 text-white mt-3">
+      <div class="col-md-6 div_trans8 corner4 text-white mt-3">
           <h4 class="mt-2 text-center">Ventas</h4>
           <h6>Agrega una nueva venta</h6>
           <form action="" class="form-group">
@@ -66,7 +66,7 @@ export default {
       error: undefined,
       stock:'',
       puntoReorden: 0,
-      products: []
+      products: [],
     }
   },
   watch: {
@@ -122,11 +122,16 @@ export default {
     },
     cantidadOnChange() {
     if (this.amount > this.stock && this.product != ""){
-      alert("La cantidad supera el Stock de: "+this.stock);
+      this.error = "La cantidad supera el Stock de: "+this.stock
       this.amount = 0;
+    
     }else{
-      if ((this.stock - this.amount) <= this.puntoReorden && this.product != "")
-          alert ("Atención! ha alcanzado el punto de reorden: "+this.puntoReorden);
+      if ((this.stock - this.amount) <= this.puntoReorden && this.product != ""){
+          this.error = "Atención! ha alcanzado el punto de reorden: "+this.puntoReorden
+        }
+        else{
+          this.error = undefined;
+        }
       }
     },
     colorText() {
