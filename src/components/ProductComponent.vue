@@ -410,9 +410,9 @@ export default {
         console.log(this.product.amount);
         console.log(this.product.cost);
         let cav = this.product.amount * this.product.cost * 365;
-        if (cav > 2000000){
+        if (cav > 1000000){
           this.product.zone = 'A';
-        }else if(cav < 2000000 && cav > 1800000)
+        }else if(cav < 1000000 && cav > 800000)
           this.product.zone = 'B';
         else{
           this.product.zone = 'C';
