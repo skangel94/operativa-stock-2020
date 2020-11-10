@@ -1,4 +1,6 @@
+
 <template>
+  
   <div class="content">
     <div id="form-container" class="__col __col-3 __align-self-center">
       <div class="__card" v-if="loading">
@@ -186,7 +188,7 @@
               <td> {{ tock.currentAmount}} </td>
               <td> {{ tock.reorder_point}} </td>
               <td v-if="tock.provideer!==null"> {{ tock.provideer.leadtime }} </td>
-              <td v-else></td>
+              <td v-else>{{diasDeCompras}}</td>
               <td> {{ tock.category.name }} </td>
               <td v-if="tock.provideer!==null"> {{ tock.provideer.name }} </td>
               <td v-else></td>
@@ -212,6 +214,8 @@
 import CategoryService from '@/services/CategoryService'
 import ProviderService from '@/services/ProviderService'
 import ProductService from '@/services/ProductService'
+import ConfigService from '@/services/ConfigService'
+
 export default {
   name: 'ProductComponent',
   data() {
@@ -235,7 +239,8 @@ export default {
       form: 'create',
       providers: [],
       categories: [],
-      stocks: []
+      stocks: [],
+      diasDeCompras: ''
     }
   },
   methods: {
@@ -432,6 +437,10 @@ export default {
       .then(resolve => {
         this.providers = resolve        
       })
+
+    ConfigService.retrieve(1).then((response) => {
+      this.diasDeCompras = response.diasDeCompras;
+    })
 
     ProductService.retrieveAll()
       .then(resolve => {
